@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detection Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: #1a1a2e;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 { color: #22C55E; }
+        img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 20px 0;
+            max-height: 300px;
+        }
+        .disease {
+            font-size: 22px;
+            font-weight: bold;
+            color: #F59E0B;
+            margin: 20px 0;
+            padding: 16px;
+            background: #F59E0B22;
+            border-radius: 8px;
+            border: 1px solid #F59E0B;
+        }
+        .confidence {
+            font-size: 16px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            background: #7C6FFF;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        a:hover { background: #6355ee; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Detection Result</h1>
+        <img src="{{ image_path }}" alt="Uploaded leaf">
+        <div class="disease">{{ disease }}</div>
+        <div class="confidence">
+            Confidence: {{ confidence }}%
+        </div>
+        <a href="/">Check Another Leaf</a>
+    </div>
+</body>
+</html>

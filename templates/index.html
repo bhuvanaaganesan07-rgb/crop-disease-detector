@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Disease Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: #1a1a2e;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 { color: #22C55E; font-size: 24px; }
+        p { color: #94a3b8; }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            background: #0f3460;
+            border: 1px solid #22C55E;
+            border-radius: 8px;
+            color: white;
+            width: 100%;
+        }
+        button {
+            background: #22C55E;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background: #16a34a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 Crop Disease Detector</h1>
+        <p>Upload a leaf photo to detect disease instantly</p>
+       <form action="/predict" method="POST" 
+      enctype="multipart/form-data">
+    <input type="file" name="file" 
+           accept="image/*" capture="environment" required>
+    <br><br>
+    <button type="submit">Detect Disease</button>
+</form>
+<video id="video" width="300" height="300" 
+       style="border-radius:12px;margin:10px 0" autoplay></video>
+<button type="button" onclick="capture()" 
+        style="background:#06B6D4;color:white;border:none;
+        padding:10px 20px;border-radius:8px;cursor:pointer;
+        margin-bottom:10px;width:100%">
+        Take Photo with Camera
+</button>
+<canvas id="canvas" style="display:none"></canvas>
+
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+
+navigator.mediaDevices.getUserMedia({video:true})
+  .then(stream => { video.srcObject = stream; });
+
+function capture(){
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video,0,0);
+  canvas.toBlob(blob => {
+    const form = new FormData();
+    form.append('file', blob, 'camera.jpg');
+    fetch('/predict', {method:'POST', body:form})
+      .then(r => r.text())
+      .then(html => document.body.innerHTML = html);
+  }, 'image/jpeg');
+}
+</script>
+    </div>
+</body>
+</html>
