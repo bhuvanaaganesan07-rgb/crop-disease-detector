@@ -10,10 +10,11 @@ MODEL_PATH = "crop_model.keras"
 
 if not os.path.exists(MODEL_PATH):
     st.write("Downloading model...")
-    url = "https://drive.google.com/uc?id=1aTJAAkhPOalTQdqSsLiVmNRSk7-_cH8s"
-    gdown.download(url, MODEL_PATH, quiet=False)
+    url = "https://colab.research.google.com/drive/176za8jqiASSfK2a5gTZL1Jznf3wJ5xp3?usp=drive_link"
+    gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
 
 model = tf.keras.models.load_model(MODEL_PATH)
+
 
 with open("class_names.json", "r") as f:
     class_names = json.load(f)
