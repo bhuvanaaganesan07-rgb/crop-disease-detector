@@ -2,4 +2,4 @@ streamlit
 tensorflow-cpu
 numpy
 pillow
-gdown
+huggingface_hub
